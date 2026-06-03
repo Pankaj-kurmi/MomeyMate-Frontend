@@ -1,0 +1,271 @@
+
+/* ==================== SUMMARY CARDS ENHANCEMENT ==================== */
+.summary-card {
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.summary-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+}
+
+.summary-card:nth-child(2)::before {
+    background: linear-gradient(90deg, var(--color-danger), #fca5a5);
+}
+
+.summary-card:nth-child(3)::before {
+    background: linear-gradient(90deg, var(--color-secondary), #86efac);
+}
+
+.summary-card:nth-child(4)::before {
+    background: linear-gradient(90deg, var(--color-info), #93c5fd);
+}
+
+.summary-card .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 0 12px 0;
+    border: none;
+}
+
+.summary-card .card-body {
+    padding: 0;
+}
+
+.card-header h3 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ==================== TRANSACTION STYLES ==================== */
+.transaction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background-color: var(--color-bg);
+    border-radius: var(--radius-sm);
+    border-left: 4px solid var(--color-primary);
+    transition: var(--transition);
+}
+
+.transaction-item:nth-child(odd) {
+    border-left-color: var(--color-primary);
+}
+
+.transaction-item:nth-child(even) {
+    border-left-color: var(--color-secondary);
+}
+
+.transaction-item:hover {
+    background-color: var(--color-bg-secondary);
+    transform: translateX(4px);
+}
+
+.transaction-content {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.transaction-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.transaction-desc {
+    font-weight: 600;
+    color: var(--color-text);
+    font-size: 14px;
+}
+
+.transaction-category {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+}
+
+.transaction-date {
+    font-size: 12px;
+    color: var(--color-text-light);
+}
+
+.transaction-amount {
+    font-weight: 700;
+    font-size: 16px;
+    min-width: 100px;
+    text-align: right;
+}
+
+.transaction-amount.income {
+    color: var(--color-secondary);
+}
+
+.transaction-amount.expense {
+    color: var(--color-danger);
+}
+
+/* ==================== CATEGORY BREAKDOWN ==================== */
+.category-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.category-item:last-child {
+    border-bottom: none;
+}
+
+.category-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.category-icon {
+    font-size: 20px;
+}
+
+.category-name {
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+.category-bar {
+    flex: 1;
+    height: 6px;
+    background-color: var(--color-bg-tertiary);
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 0 16px;
+}
+
+.category-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+    border-radius: 3px;
+    transition: var(--transition);
+}
+
+.category-percentage {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--color-text);
+    min-width: 50px;
+    text-align: right;
+}
+
+/* ==================== FINANCIAL HEALTH ==================== */
+.health-display {
+    text-align: center;
+    padding: 20px;
+}
+
+.score-circle {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 52px;
+    font-weight: 700;
+    box-shadow: var(--shadow-lg);
+}
+
+.health-status {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    margin-top: 12px;
+}
+
+/* ==================== MONTHLY SUMMARY TABLE ==================== */
+.summary-table {
+    width: 100%;
+}
+
+.summary-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.summary-table th,
+.summary-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 14px;
+}
+
+.summary-table th {
+    background-color: var(--color-bg);
+    font-weight: 600;
+    color: var(--color-text-secondary);
+}
+
+.summary-table tr:hover {
+    background-color: var(--color-bg);
+}
+
+/* ==================== BREAKDOWN TABLE ==================== */
+.breakdown-table {
+    width: 100%;
+}
+
+.breakdown-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.breakdown-item:last-child {
+    border-bottom: none;
+}
+
+.breakdown-label {
+    font-size: 14px;
+    color: var(--color-text);
+}
+
+.breakdown-value {
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+/* ==================== EMPTY STATES ==================== */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--color-text-secondary);
+}
+
+.empty-state-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.empty-state-text {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+}

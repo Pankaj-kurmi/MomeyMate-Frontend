@@ -1,0 +1,411 @@
+
+/* ==================== TABLET (768px - 1024px) ==================== */
+@media (max-width: 1024px) {
+    :root {
+        --sidebar-width: 200px;
+        --header-height: 60px;
+        font-size: 15px;
+    }
+
+    .main-content {
+        margin-left: var(--sidebar-width);
+    }
+
+    .page-content {
+        padding: 20px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .summary-section {
+        grid-column: 1 / -1;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sidebar-nav {
+        padding: 8px 0;
+    }
+
+    .nav-item {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+
+    .top-header {
+        padding: 0 20px;
+    }
+
+    #page-title {
+        font-size: 1.25rem;
+    }
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .filter-group {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==================== MOBILE (< 768px) ==================== */
+@media (max-width: 768px) {
+    :root {
+        --sidebar-width: 0;
+        --header-height: 56px;
+        font-size: 14px;
+    }
+
+    /* ==================== SIDEBAR - MOBILE ==================== */
+    .sidebar {
+        width: 260px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 1100;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .menu-toggle {
+        display: block !important;
+    }
+
+    /* ==================== LAYOUT - MOBILE ==================== */
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .top-header {
+        padding: 0 16px;
+        height: var(--header-height);
+    }
+
+    .header-right {
+        gap: 12px;
+    }
+
+    .user-profile {
+        gap: 8px;
+    }
+
+    .user-profile span {
+        display: none;
+    }
+
+    /* ==================== PAGE CONTENT - MOBILE ==================== */
+    .page-content {
+        padding: 16px;
+    }
+
+    .page-header {
+        margin-bottom: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .page-header h2 {
+        font-size: 1.25rem;
+        margin: 0;
+    }
+
+    .page-header .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* ==================== DASHBOARD - MOBILE ==================== */
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .summary-section {
+        grid-column: 1 / -1;
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .summary-card {
+        padding: 16px;
+    }
+
+    .amount {
+        font-size: 1.5rem;
+    }
+
+    .transactions-section {
+        grid-column: 1 / -1;
+    }
+
+    .analytics-section {
+        grid-column: 1 / -1;
+    }
+
+    .health-section {
+        grid-column: 1 / -1;
+    }
+
+    /* ==================== TABLES - MOBILE ==================== */
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .data-table {
+        font-size: 12px;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 8px;
+    }
+
+    /* ==================== CARDS - MOBILE ==================== */
+    .card-header {
+        padding: 16px;
+    }
+
+    .card-body {
+        padding: 16px;
+    }
+
+    /* ==================== FORMS - MOBILE ==================== */
+    .filter-group {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .filter-group .form-group {
+        margin-bottom: 0;
+    }
+
+    .form-group {
+        margin-bottom: 12px;
+    }
+
+    input, select, textarea {
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    /* ==================== MODALS - MOBILE ==================== */
+    .modal-content {
+        width: 95%;
+        max-height: 85vh;
+    }
+
+    .modal-form {
+        padding: 16px;
+    }
+
+    .modal-actions {
+        gap: 8px;
+    }
+
+    .modal-actions .btn {
+        flex: 1;
+    }
+
+    /* ==================== GRID - MOBILE ==================== */
+    .grid-responsive {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 12px;
+    }
+
+    .analytics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .health-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* ==================== ALERTS - MOBILE ==================== */
+    .alert-container {
+        right: 12px;
+        left: 12px;
+        max-width: none;
+    }
+
+    .alert {
+        padding: 12px;
+        font-size: 13px;
+    }
+
+    /* ==================== BUTTONS - MOBILE ==================== */
+    .btn {
+        padding: 12px 16px;
+        font-size: 13px;
+    }
+
+    .btn-sm {
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+
+    /* ==================== SCORE CIRCLE - MOBILE ==================== */
+    .score-circle {
+        width: 100px;
+        height: 100px;
+        font-size: 40px;
+    }
+
+    /* ==================== TRANSACTION ITEM - MOBILE ==================== */
+    .transaction-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 12px;
+    }
+
+    .transaction-content {
+        width: 100%;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .transaction-amount {
+        width: 100%;
+        text-align: right;
+    }
+
+    /* ==================== AUTH - MOBILE ==================== */
+    .auth-card {
+        width: 95%;
+        max-width: 100%;
+        margin: 20px auto;
+    }
+
+    .auth-header {
+        padding: 30px 20px 20px;
+    }
+
+    .auth-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .auth-form {
+        padding: 24px 20px;
+    }
+}
+
+/* ==================== SMALL MOBILE (< 480px) ==================== */
+@media (max-width: 480px) {
+    :root {
+        font-size: 13px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    h3 {
+        font-size: 1rem;
+    }
+
+    .top-header {
+        padding: 0 12px;
+    }
+
+    .page-content {
+        padding: 12px;
+    }
+
+    .page-header h2 {
+        font-size: 1.1rem;
+    }
+
+    .summary-card {
+        padding: 12px;
+    }
+
+    .card-header {
+        padding: 12px;
+    }
+
+    .card-body {
+        padding: 12px;
+    }
+
+    .amount {
+        font-size: 1.25rem;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 6px;
+        font-size: 11px;
+    }
+
+    .btn {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    label {
+        margin-bottom: 4px;
+        font-size: 12px;
+    }
+
+    input, select, textarea {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .score-circle {
+        width: 80px;
+        height: 80px;
+        font-size: 32px;
+    }
+
+    .transaction-item {
+        padding: 10px;
+    }
+
+    .grid-responsive {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+
+    .modal-content {
+        width: 98%;
+    }
+
+    .sidebar {
+        width: 240px;
+    }
+}
+
+/* ==================== LANDSCAPE MOBILE ==================== */
+@media (max-height: 600px) and (orientation: landscape) {
+    .top-header {
+        height: 50px;
+    }
+
+    .page-content {
+        padding: 12px;
+    }
+
+    .summary-section {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .page-header {
+        margin-bottom: 12px;
+    }
+}
