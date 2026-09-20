@@ -28,61 +28,68 @@ const DEFAULT_CATEGORIES = [
   { id: 11, name: 'Investment', type: 'INCOME', icon: '📈' }
 ];
 
-// Seed initial mock data if not present in localStorage
+const getUserStorageKey = (key) => {
+  const storedUser = localStorage.getItem(STORAGE_KEYS.USER);
+  if (!storedUser) return key;
+
+  try {
+    const { email } = JSON.parse(storedUser);
+    return email ? `${key}:${encodeURIComponent(email.toLowerCase())}` : key;
+  } catch {
+    return key;
+  }
+};
+
+// Store mock data separately for each signed-in account.
 const getLocalStorageItem = (key, defaultValue) => {
-  const item = localStorage.getItem(key);
+  const scopedKey = getUserStorageKey(key);
+  const item = localStorage.getItem(scopedKey);
   if (!item) {
-    localStorage.setItem(key, JSON.stringify(defaultValue));
+    localStorage.setItem(scopedKey, JSON.stringify(defaultValue));
     return defaultValue;
   }
   return JSON.parse(item);
 };
 
 const setLocalStorageItem = (key, value) => {
-  localStorage.setItem(key, JSON.stringify(value));
+  localStorage.setItem(getUserStorageKey(key), JSON.stringify(value));
+};
+
+const getDefaultProfile = () => {
+  const storedUser = localStorage.getItem(STORAGE_KEYS.USER);
+  let user = {};
+  try {
+    user = storedUser ? JSON.parse(storedUser) : {};
+  } catch {
+    user = {};
+  }
+
+  return {
+    name: user.name || '',
+    email: user.email || '',
+    phone: '',
+    currency: 'INR'
+  };
 };
 
 // Initialize mock DB
 const mockDB = {
-  getExpenses: () => getLocalStorageItem(STORAGE_KEYS.EXPENSES, [
-    { id: 1, date: '2026-05-10', description: 'Weekly groceries at SuperMart', category: 'Food & Dining', amount: 3450 },
-    { id: 2, date: '2026-05-12', description: 'Uber Ride to office', category: 'Transportation', amount: 480 },
-    { id: 3, date: '2026-05-15', description: 'Netflix Monthly Premium', category: 'Entertainment', amount: 649 },
-    { id: 4, date: '2026-05-18', description: 'Electric Bill', category: 'Utilities', amount: 4200 },
-    { id: 5, date: '2026-05-20', description: 'New Summer Sneakers', category: 'Shopping', amount: 5999 },
-    { id: 6, date: '2026-05-22', description: 'Dentist Checkup', category: 'Healthcare', amount: 1500 }
-  ]),
+  getExpenses: () => getLocalStorageItem(STORAGE_KEYS.EXPENSES, []),
   setExpenses: (data) => setLocalStorageItem(STORAGE_KEYS.EXPENSES, data),
 
-  getIncome: () => getLocalStorageItem(STORAGE_KEYS.INCOME, [
-    { id: 1, date: '2026-05-01', source: 'Monthly Tech Salary', category: 'Salary', amount: 95000 },
-    { id: 2, date: '2026-05-15', source: 'Web Design Freelance Gig', category: 'Freelance', amount: 18000 },
-    { id: 3, date: '2026-05-20', source: 'Stock Dividends payout', category: 'Investment', amount: 3200 }
-  ]),
+  getIncome: () => getLocalStorageItem(STORAGE_KEYS.INCOME, []),
   setIncome: (data) => setLocalStorageItem(STORAGE_KEYS.INCOME, data),
 
   getCategories: () => getLocalStorageItem(STORAGE_KEYS.CATEGORIES, DEFAULT_CATEGORIES),
   setCategories: (data) => setLocalStorageItem(STORAGE_KEYS.CATEGORIES, data),
 
-  getCreditAccounts: () => getLocalStorageItem(STORAGE_KEYS.CREDIT_ACCOUNTS, [
-    { id: 1, name: 'HDFC Regalia Credit Card', type: 'CREDIT_CARD', limit: 300000, balance: 42000 },
-    { id: 2, name: 'SBI SimplyClick Card', type: 'CREDIT_CARD', limit: 150000, balance: 18500 },
-    { id: 3, name: 'ICICI Personal Car Loan', type: 'PERSONAL_LOAN', limit: 800000, balance: 520000 }
-  ]),
+  getCreditAccounts: () => getLocalStorageItem(STORAGE_KEYS.CREDIT_ACCOUNTS, []),
   setCreditAccounts: (data) => setLocalStorageItem(STORAGE_KEYS.CREDIT_ACCOUNTS, data),
 
-  getCreditPayments: () => getLocalStorageItem(STORAGE_KEYS.CREDIT_PAYMENTS, [
-    { id: 1, date: '2026-05-02', accountName: 'HDFC Regalia Credit Card', amount: 18500, type: 'PAYMENT' },
-    { id: 2, date: '2026-05-05', accountName: 'ICICI Personal Car Loan', amount: 14500, type: 'EMI' }
-  ]),
+  getCreditPayments: () => getLocalStorageItem(STORAGE_KEYS.CREDIT_PAYMENTS, []),
   setCreditPayments: (data) => setLocalStorageItem(STORAGE_KEYS.CREDIT_PAYMENTS, data),
 
-  getProfile: () => getLocalStorageItem(STORAGE_KEYS.PROFILE, {
-    name: 'Pankaj Kumar',
-    email: 'pankaj.kumar@example.com',
-    phone: '9876543210',
-    currency: 'INR'
-  }),
+  getProfile: () => getLocalStorageItem(STORAGE_KEYS.PROFILE, getDefaultProfile()),
   setProfile: (data) => setLocalStorageItem(STORAGE_KEYS.PROFILE, data)
 };
 
@@ -228,7 +235,7 @@ class APIHandler {
       const { email, password } = options.body;
       if (email && password) {
         this.setToken('mock-jwt-token-xyz-123');
-        const user = { name: mockDB.getProfile().name, email, role: 'USER' };
+        const user = { name: email.split('@')[0], email, role: 'USER' };
         localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
         return { token: 'mock-jwt-token-xyz-123', user };
       }
@@ -237,11 +244,10 @@ class APIHandler {
 
     if (endpoint === '/auth/register') {
       const { name, email } = options.body;
-      const profile = mockDB.getProfile();
-      mockDB.setProfile({ ...profile, name, email });
-      this.setToken('mock-jwt-token-xyz-123');
       const user = { name, email, role: 'USER' };
       localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
+      mockDB.setProfile({ ...mockDB.getProfile(), name, email });
+      this.setToken('mock-jwt-token-xyz-123');
       return { token: 'mock-jwt-token-xyz-123', user };
     }
 

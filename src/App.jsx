@@ -99,12 +99,12 @@ function App() {
                 <Route path="/health" element={<Health />} />
                 <Route path="/alerts" element={<Alerts />} />
                 <Route path="/profile" element={<Profile />} />
-                <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                <Route path="/" element={<Navigate to="/login" replace />} />
               </Route>
             </Route>
 
             {/* Catch-all redirect */}
-            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            <Route path="*" element={<Navigate to="/login" replace />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
